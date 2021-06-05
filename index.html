@@ -4,23 +4,46 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
   <body>
     <canvas id="bg"></canvas>
-    <div class="page" data-page="1">
-      <header>
-        <h1>The Wright Flyer</h1>
-      </header>
-      <section>
-        <p class="description">
+    <header>
+      <h1 style="outline: none">The Wright Flyer</h1>
+    </header>
+    <button aria-haspopup="true" aria-controls="aside-menu"
+    id="menu-button" class="menu" aria-label="Story Menu">
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+        <path class="line line2" d="M 20,50 H 80" />
+        <path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+      </svg>
+    </button>
+    <div class="tip-container">
+      <img src="res/bulb.png" alt="Image of a lightbulb. It describes a Tip" />
+      <span class="tip">TIP: Use your mouse/trackpad (drag, zoom etc) to explore The Wright Flyer in all its glory.</span>
+    </div>
+    <aside class="overlay-sidebar" id="aside-menu">
+      <h2>The Story</h2>
+      <article>
+        <p>
           In 1903, Wilbur and Orville Wright took to the skies on this frail looking thing,
           the first powered airplane to demonstrate sustained flight under the full control of the pilot.
         </p>
-      </section>
-    </div>
+        <p>
+          They flew it four time on 17th of December near Kill Devil Hills, Kitty Hawk, North Carolina. It flew a total distance of 6 kms on that day.
+        </p>
+        <p>
+          In 1976 this original flyer was moved to the Milestones of Flight Gallery of the new National Air and Space Museum of the Smithsonian, Washington D.C.
+        </p>
+      </article>
+      <div class="toggle">
+        <input type="checkbox" id="toggle-animation" />
+        <label for="toggle-animation"> Auto animate ?</label>
+      </div>
+    </aside>
     <script type="module" src="/main.js"></script>
   </body>
 </html>

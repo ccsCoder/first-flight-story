@@ -112,24 +112,50 @@ refresh();
 
 /** page interactions */
 
-// scroll handler, shamelessly copied from
-// https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event
-let lastKnownScrollPosition = 0;
-let ticking = false;
+document.addEventListener('DOMContentLoaded', init);
+// animate the drawer
 
-function doSomething(scrollPos) {
-  // camera.position.
+function onMenuToggled(e) {
+  const elem = this || e.target;
+  elem.classList.toggle('opened');
+  elem.setAttribute('aria-expanded', elem.classList.contains('opened'));
+
+  const menuContent = document.querySelector('#aside-menu');
+
+  // set focus to first menu item / menu, toggle menu.
+  if (elem.classList.contains('opened')) {
+    menuContent.style.left = '0';
+    document.querySelector('#toggle-animation').focus();
+  } else {
+    menuContent.style.left = '-50%';
+    elem.focus();
+  }
 }
 
-document.addEventListener('scroll', function(e) {
-  lastKnownScrollPosition = window.scrollY;
+function init() {
+  const tooltip = document.querySelector('.tip-container');
+  document.querySelector('#menu-button').addEventListener('click', onMenuToggled);
+  document.querySelector('#menu-button').addEventListener('keydown', function(e) {
+    if (e.key == 'ArrowDown') {
+      onMenuToggled(e);
+      return;
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    const elem = document.querySelector('#menu-button');
+    if (e.key == 'Escape') { // escape
+      elem.classList.remove('opened');
+      document.querySelector('#aside-menu').style.left = '-50%';
+      elem.focus();
+    }
+  });
+  // hint
+  setTimeout(() => {
+    tooltip.style.opacity = 1;
+  }, 3000);
+  setTimeout(() => {
+    tooltip.remove();
+  }, 8000);
 
-  if (!ticking) {
-    window.requestAnimationFrame(function() {
-      doSomething(lastKnownScrollPosition);
-      ticking = false;
-    });
+}
 
-    ticking = true;
-  }
-});
