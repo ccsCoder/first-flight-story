@@ -2,30 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="favicon.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>The Wright Flyer, and its story</title>
   </head>
   <body>
-    <canvas id="bg"></canvas>
+    <canvas id="bg" aria-busy="true"></canvas>
     <header>
       <h1 style="outline: none">The Wright Flyer</h1>
     </header>
+    <div id="loading-indicator" role="status">
+      <img src="https://media.giphy.com/media/3AMRa6DRUhMli/source.gif" alt="Loading, Please wait"/>
+    </div>
     <button aria-haspopup="true" aria-controls="aside-menu"
-    id="menu-button" class="menu" aria-label="Story Menu">
+    id="menu-button" class="menu" aria-label="Open story dialog">
       <svg width="100" height="100" viewBox="0 0 100 100">
         <path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
         <path class="line line2" d="M 20,50 H 80" />
         <path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
       </svg>
     </button>
-    <div class="tip-container">
-      <img src="res/bulb.png" alt="Image of a lightbulb. It describes a Tip" />
-      <span class="tip">TIP: Use your mouse/trackpad (drag, zoom etc) to explore The Wright Flyer in all its glory.</span>
+    <div class="tip-container" aria-live="polite">
+      <img src="res/bulb.png" alt="Image of a lightbulb as in lightbulbs going off in the head" />
+      <div class="tip">TIP: Use your mouse/trackpad (drag, zoom etc) to explore The Wright Flyer in all its glory.</div>
     </div>
-    <aside class="overlay-sidebar" id="aside-menu">
+    <aside class="overlay-sidebar" id="aside-menu" role="dialog" aria-modal="false">
       <h2>The Story</h2>
       <article>
         <p>
@@ -43,6 +46,9 @@
         <input type="checkbox" id="toggle-animation" />
         <label for="toggle-animation"> Auto animate ?</label>
       </div>
+      <footer>
+        Made with <img width="24px" height="24px" src="res/icons8-heart-64.png" alt="love" /> by <a target="_blank" href="https://github.com/ccsCoder">ccsCoder</a>
+      </footer>
     </aside>
     <script type="module" src="/main.js"></script>
   </body>

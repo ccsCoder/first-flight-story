@@ -8,6 +8,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 // scene, camera, renderer
 const scene = new THREE.Scene();
 
+// auto-animate flag
+let autoAnimate = false;
+
+// holds the gltf scene
+let root = undefined; 
+
 // camera
 const camera = new THREE.PerspectiveCamera(
   50, // view frustrum
@@ -31,7 +37,9 @@ scene.add(controls);
 // Load our Plane
 const gltfLoader = new GLTFLoader();
 gltfLoader.load('models/wright_flyer-web_resolution-gltf/wright_flyer-full_resolution.gltf', function(gltf) {
-  const root = gltf.scene;
+  document.querySelector('#loading-indicator').remove();
+  document.querySelector('#bg').setAttribute('aria-busy', false);
+  root = gltf.scene;
   scene.add(root);
   const box = new THREE.Box3().setFromObject(root);
   const boxSize = box.getSize(new THREE.Vector3()).length();
@@ -102,6 +110,9 @@ window.addEventListener('resize', function() {
 
 function refresh()  {
   requestAnimationFrame(refresh);
+  if(root && autoAnimate) {
+    root.rotation.y+= 0.001;
+  }
   controls.update(); // make it move iwhtr mosaeu
   renderer.render(scene, camera);
 }
@@ -124,16 +135,19 @@ function onMenuToggled(e) {
 
   // set focus to first menu item / menu, toggle menu.
   if (elem.classList.contains('opened')) {
+    elem.setAttribute('aria-label', 'Close story dialog');
     menuContent.style.left = '0';
     document.querySelector('#toggle-animation').focus();
   } else {
-    menuContent.style.left = '-50%';
+    elem.setAttribute('aria-label', 'Open story dialog');
+    menuContent.style.left = '-100%';
     elem.focus();
   }
 }
 
 function init() {
   const tooltip = document.querySelector('.tip-container');
+
   document.querySelector('#menu-button').addEventListener('click', onMenuToggled);
   document.querySelector('#menu-button').addEventListener('keydown', function(e) {
     if (e.key == 'ArrowDown') {
@@ -141,21 +155,33 @@ function init() {
       return;
     }
   });
-  document.addEventListener('keydown', function(e) {
+
+  function closeMenu() {
     const elem = document.querySelector('#menu-button');
+    elem.classList.remove('opened');
+    document.querySelector('#aside-menu').style.left = '-100%';
+    elem.focus();
+  }
+  // close dialog on escape
+  document.addEventListener('keydown', function(e) {
     if (e.key == 'Escape') { // escape
-      elem.classList.remove('opened');
-      document.querySelector('#aside-menu').style.left = '-50%';
-      elem.focus();
+      closeMenu();
     }
   });
-  // hint
+  // close dialog on click on canvas
+  document.querySelector('#bg').addEventListener('click', closeMenu);
+  // Show TIP / HINT after a while
   setTimeout(() => {
     tooltip.style.opacity = 1;
   }, 3000);
   setTimeout(() => {
     tooltip.remove();
   }, 8000);
+
+  // Animation toggle
+  document.querySelector('#toggle-animation').addEventListener('change', function(e) {
+    autoAnimate = this.checked;
+  });
 
 }
 
