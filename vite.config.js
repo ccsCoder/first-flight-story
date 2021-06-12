@@ -1,9 +1,7 @@
-import { defineConfig } from "vite"
+import { defineConfig } from "vite";
 
-export default defineConfig ({
+export default defineConfig({
   build: {
-    assetsDir: 'res',
-    minify: true,
-
+    outDir: 'docs'
   }
-});
+})
