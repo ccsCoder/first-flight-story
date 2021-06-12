@@ -49,6 +49,12 @@ canvas {
 }
 
 #loading-indicator {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+}
+
+#loading-indicator > img {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -175,7 +181,7 @@ aside.overlay-sidebar {
 }
 
 /** Media Queries**/
-/* 
+/*
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
 */
@@ -195,7 +201,7 @@ aside.overlay-sidebar {
     width: 24px;
   }
 }
-/* 
+/*
   ##Device = Low Resolution Tablets, Mobiles (Landscape)
   ##Screen = B/w 481px to 767px
   ##Device = Most of the Smartphones Mobiles (Portrait)
